@@ -4,7 +4,7 @@ int renderGUI()
 {
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, _T("ImGui Example"), NULL };
     ::RegisterClassEx(&wc);
-    HWND hwnd = ::CreateWindow(wc.lpszClassName, _T(" "), WS_OVERLAPPEDWINDOW, 900, 400, 500, 310, nullptr, nullptr, wc.hInstance, nullptr);
+    HWND hwnd = ::CreateWindow(wc.lpszClassName, _T(" "), WS_MINIMIZE, 900, 400, 500, 310, nullptr, nullptr, wc.hInstance, nullptr);
 
     if (!CreateDeviceD3D(hwnd))
     {
@@ -19,7 +19,9 @@ int renderGUI()
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+
     ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImFont* font1 = io.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\arialbd.ttf)", 17.0f);
 
     gui::theme();
 
@@ -42,6 +44,7 @@ int renderGUI()
         ImGui_ImplDX11_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
+        ImGui::PushFont(font1);
 
         {
             gui::interfaces();

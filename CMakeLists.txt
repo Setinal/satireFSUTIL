@@ -14,5 +14,5 @@ file(GLOB sources
         "src/modules/*.h")
 
 
-add_executable(satireFSUTIL ${sources} src/dx11/render/render.cpp src/dx11/render/render.h src/entry/main.h src/dx11/gui/gui.cpp src/dx11/gui/gui.h)
+add_executable(satireFSUTIL ${sources} src/dx11/render/render.cpp src/dx11/render/render.h src/entry/main.h src/dx11/gui/gui.cpp src/dx11/gui/gui.h src/modules/modules.cpp src/modules/modules.h)
 target_link_libraries(satireFSUTIL d3d11)

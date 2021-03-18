@@ -1,4 +1,5 @@
 #include "gui.h"
+#include "../../modules/modules.h"
 
 void gui::theme()
 {
@@ -56,10 +57,31 @@ void gui::theme()
     colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
 }
 
+
 int gui::interfaces()
 {
-    ImGui::Begin(" ");
+    int menuSection = 0;
+    ImGui::SetNextWindowPos(ImVec2(0, 0));
+    ImGui::SetNextWindowSize(ImVec2(0, 0));
+    ImGui::Begin(" ", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration);
+    if (ImGui::Button("Search"))
+    {
+        menuSection = 0;
+    }
+    ImGui::SameLine(80.0f);
+    if (ImGui::Button("Misc"))
+    {
+        menuSection = 1;
+    }
+    ImGui::Separator();
+    switch(menuSection)
+    {
+        case 0:
+            ImGui::Button("Test");
+            break;
+    }
     ImGui::End();
+    ImGui::PopFont();
 
     return 0;
 }

@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include "../render/render.h"
+#include "../../modules/modules.h"
 
 class gui
 {
