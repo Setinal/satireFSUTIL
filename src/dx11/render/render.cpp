@@ -4,7 +4,7 @@ int renderGUI()
 {
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, _T("ImGui Example"), NULL };
     ::RegisterClassEx(&wc);
-    HWND hwnd = ::CreateWindow(wc.lpszClassName, _T(" "), WS_MINIMIZE, 900, 400, 500, 310, nullptr, nullptr, wc.hInstance, nullptr);
+    HWND hwnd = ::CreateWindow(wc.lpszClassName, _T(" "), WS_MINIMIZE, 900, 400, 495, 310, nullptr, nullptr, wc.hInstance, nullptr);
 
     if (!CreateDeviceD3D(hwnd))
     {

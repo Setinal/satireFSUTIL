@@ -60,7 +60,11 @@ void gui::theme()
 
 int gui::interfaces()
 {
-    int menuSection = 0;
+    static int menuSection = 0;
+    static bool exitOnceDone = false;
+    static bool disableDeleteALL = false;
+    static bool debugConsole = false;
+
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGui::SetNextWindowSize(ImVec2(0, 0));
     ImGui::Begin(" ", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration);
@@ -68,17 +72,129 @@ int gui::interfaces()
     {
         menuSection = 0;
     }
-    ImGui::SameLine(80.0f);
+    ImGui::SameLine(70.0f);
     if (ImGui::Button("Misc"))
     {
         menuSection = 1;
+    }
+    ImGui::SameLine(115.0f);
+    if (ImGui::Button("Tools"))
+    {
+        menuSection = 3;
+    }
+    ImGui::SameLine(400.0f);
+    if (ImGui::Button("Settings"))
+    {
+        menuSection = 2;
     }
     ImGui::Separator();
     switch(menuSection)
     {
         case 0:
-            ImGui::Button("Test");
+            ImGui::Text("Search Menu: ");
+            ImGui::Separator();
+            if (ImGui::Button("Deleted Files"))
+            {
+                modules::search::deleted();
+                if (exitOnceDone)
+                {
+                    exit(-1);
+                }
+            }
+            if (ImGui::Button("Renamed Files"))
+            {
+                modules::search::renamed();
+                if (exitOnceDone)
+                {
+                    exit(-1);
+                }
+            }
+
+            ImGui::SetCursorPos(ImVec2(430, 230));
+            if (ImGui::Button("Exit"))
+            {
+                exit(-1);
+            }
+            ImGui::SetCursorPos(ImVec2(10, 230));
+            if (ImGui::Button("Next Tab"))
+            {
+                menuSection = 1;
+            }
             break;
+
+        case 1:
+            ImGui::Text("Misc Menu: ");
+            ImGui::Separator();
+            ImGui::Checkbox("Delete Results Separately", &disableDeleteALL);
+            ImGui::SameLine(320.0f);
+            if (ImGui::Button("Delete ALL Results"))
+            {
+                modules::misc::deleteALL();
+            }
+            if (disableDeleteALL)
+            {
+                if (ImGui::Button("Delete Renamed Results"))
+                {
+                    modules::misc::deleteRENAMED();
+                }
+                if (ImGui::Button("Delete Deleted Results"))
+                {
+
+                    modules::misc::deleteDELETED();
+                }
+            }
+            ImGui::SetCursorPos(ImVec2(10, 230));
+            if (ImGui::Button("Next Tab"))
+            {
+                menuSection = 3;
+            }
+            break;
+        case 2:
+            ImGui::Text("Settings Menu: ");
+            ImGui::Separator();
+            ImGui::Checkbox("Show Debug Console", &debugConsole);
+            ImGui::Checkbox("Exit once Done", &exitOnceDone);
+            if (debugConsole)
+            {
+                ::ShowWindow(::GetConsoleWindow(), SW_SHOW);
+            }
+            else
+            {
+                ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+            }
+            ImGui::SetCursorPos(ImVec2(10, 230));
+            if (ImGui::Button("Next Tab"))
+            {
+                menuSection = 3;
+            }
+            break;
+
+        case 3:
+            ImGui::Text("Tools Menu");
+            ImGui::Separator();
+            if (ImGui::Button("Process Hacker"))
+            {
+                modules::search::openProcHack();
+            }
+            ImGui::SameLine(345.0f);
+            if (ImGui::Button("UserAssistView"))
+            {
+                modules::search::userAssistView();
+            }
+            if (ImGui::Button("BrowsingHistoryView"))
+            {
+                modules::search::browsingHisView();
+            }
+            ImGui::SameLine(328.0f);
+            if (ImGui::Button("Search Everything"))
+            {
+                modules::search::searchVoidTools();
+            }
+            ImGui::SetCursorPos(ImVec2(10, 230));
+            if (ImGui::Button("Next Tab"))
+            {
+                menuSection = 2;
+            }
     }
     ImGui::End();
     ImGui::PopFont();

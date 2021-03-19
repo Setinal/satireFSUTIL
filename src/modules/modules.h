@@ -8,6 +8,7 @@
 #include <string>
 #include <conio.h>
 
+
 #include "../dx11/gui/gui.h"
 
 namespace modules
@@ -33,6 +34,27 @@ namespace modules
         static void ascii();
         static void drawMenu();
     };
+
+    class search
+    {
+    public:
+        static void deleted();
+        static void renamed();
+
+        static int openProcHack();
+        static int userAssistView();
+        static int browsingHisView();
+        static int searchVoidTools();
+    };
+
+    class misc
+    {
+    public:
+        static void deleteALL();
+        static void deleteRENAMED();
+        static void deleteDELETED();
+    };
+
 }
 
 #endif //SATIREFSUTIL_MODULES_H

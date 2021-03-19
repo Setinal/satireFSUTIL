@@ -4,9 +4,11 @@
 #include <Windows.h>
 #include <iostream>
 #include <stdio.h>
+#include <fileapi.h>
 
 #include "../render/render.h"
 #include "../../modules/modules.h"
+#include "../../includes/xorstr.hpp"
 
 class gui
 {
