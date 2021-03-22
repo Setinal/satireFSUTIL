@@ -144,7 +144,7 @@ void modules::pin::drawMenu()
         std::cout << xorstr("*").crypt_get();
         inputText = _getch();
     }
-    if (pass == xorstr("A2524E3DF2D7").crypt_get())
+    if (pass == xorstr("PIN").crypt_get()) // You can change this, this is the access code.
     {
         modules::console::changeColor(5);
         system(xorstr("cls").crypt_get());
